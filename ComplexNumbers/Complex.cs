@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace ComplexNumbers
-{
+{ 
     public class Complex
     {
         public double real;
