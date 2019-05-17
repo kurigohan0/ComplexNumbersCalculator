@@ -1,0 +1,65 @@
+﻿<Window x:Class="ComplexNumbers.MainCalcWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ComplexNumbers"
+        mc:Ignorable="d"
+         Title="Калькулятор комплексных чисел" Height="575.6" Width="404" ResizeMode="CanMinimize" Icon="resources/calculator.ico" Background="#FFCDCDCD">
+    <Grid>
+
+        <Label Content="Калькулятор комплексных чисел" FontSize="18" FontWeight="Bold" FontFamily="Lucida Sans" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" Width="370" Height="39" VerticalAlignment="Top"></Label>
+        <!-- Элементы ввода первого числа -->
+        <Label Content="+" HorizontalAlignment="Left" Margin="142,39,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="i" HorizontalAlignment="Left" Margin="310,39,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+
+        <Label Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,39,0,0" Width="127" x:Name="FirstReal" Background="#FFBFBFBF"/>
+        <Label Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="178,39,0,0" Width="127" x:Name="FirstImaginary" Background="#FFBFBFBF"/>
+
+
+
+        <!-- Элементы ввода второго числа -->
+        <Label Content="+" HorizontalAlignment="Left" Margin="142,77,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="i" HorizontalAlignment="Left" Margin="310,77,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+
+        <Label Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,77,0,0" Width="127" x:Name="SecondReal" Background="#FFBFBFBF"/>
+        <Label Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="178,77,0,0" Width="127" x:Name="SecondImaginary" Background="#FFBFBFBF"/>
+
+        <!-- Область результата -->
+        <Border BorderBrush="Black" BorderThickness="1" Background="#FFDDDDDD" CornerRadius="10" Margin="10,460,0,0" Height="65" VerticalAlignment="Top" HorizontalAlignment="Left" Width="370">
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" Height="30" Width="auto" Grid.Row="8" Grid.ColumnSpan="3" Orientation="Horizontal">
+                <Label Content="Result: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" FontWeight="Bold" FontFamily="Calibri"></Label>
+                <Label x:Name="lblResult" Content="Не посчитанно " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" FontWeight="Bold" FontFamily="Calibri" Margin="0,-17,0,-17.6"></Label>
+            </StackPanel>
+        </Border>
+
+        <!-- Function buttons -->
+        <Button x:Name="btnAdd" Content="+" FontSize="17" Click="Button_Click" Background="#FFF1F1F1" Margin="235,385,0,0" Tag ="addBtn" Height="70" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70"/>
+        <Button x:Name="btnSub" Content="-" FontSize="17" Click="Button_Click" Background="#FFF1F1F1" Margin="235,310,0,0" Tag="subBtn" Height="70" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70"/>
+        <Button x:Name="btnMul" Content="*" FontSize="17" Click="Button_Click" Background="#FFF1F1F1" Margin="235,235,0,0" Tag="mulBtn" Height="70" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70"/>
+        <Button x:Name="btnDiv" Content="/" FontSize="17" Click="Button_Click" Background="#FFF1F1F1" Margin="235,160,0,0" Tag="divBtn" Height="70" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70"/>
+        <Button x:Name="btnSqr" Content="SQR" FontSize="15" Click="Button_Click" Margin="310,310,0,0" Tag="sqrBtn" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70"/>
+        <Button x:Name="btnClearAll" Width="70" Content="Clear All" FontSize="15" Click="Button_Click" Margin="310,117,0,0" Tag="clrBtn" HorizontalAlignment="Left" Height="38" VerticalAlignment="Top"/>
+        <Button Content="7" Tag="IsNumber" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click"/>
+        <Button Content="8" Tag="IsNumber" HorizontalAlignment="Left" Margin="85,160,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click"/>
+        <Button Content="9" Tag="IsNumber" HorizontalAlignment="Left" Margin="160,160,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click"/>
+        <Button Content="4" Tag="IsNumber" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click"/>
+        <Button Content="5" Tag="IsNumber" HorizontalAlignment="Left" Margin="85,235,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click"/>
+        <Button Content="6" Tag="IsNumber" HorizontalAlignment="Left" Margin="160,235,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click"/>
+        <Button Content="1" Tag="IsNumber" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click"/>
+        <Button Content="2" Tag="IsNumber" HorizontalAlignment="Left" Margin="85,310,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click"/>
+        <Button Content="3" Tag="IsNumber" HorizontalAlignment="Left" Margin="160,310,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click"/>
+        <Button Content="0" Tag="IsNumber" HorizontalAlignment="Left" Margin="85,385,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click"/>
+        <Button Content="," Tag="IsNumber" HorizontalAlignment="Left" Margin="160,385,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click"/>
+        <Button Content="%" Tag="percentBtn" x:Name="PercentButton" HorizontalAlignment="Left" Margin="310,385,0,0" VerticalAlignment="Top" Width="70" Height="70" Click="Button_Click" Background="#FFC8C8C8"/>
+        <Button Content="MC" Tag="Memory" x:Name="MClearButton" HorizontalAlignment="Left" Margin="310,160,0,0" VerticalAlignment="Top" Width="33" Height="32" Click="Button_Click" Background="#FFC8C8C8"/>
+        <Button Content="M+" Tag="Memory" x:Name="MPlusButton" HorizontalAlignment="Left" Margin="310,235,0,0" VerticalAlignment="Top" Width="70" Height="32" Click="Button_Click" Background="#FFC8C8C8"/>
+        <Button Content="M-" Tag="Memory" x:Name="MMinusButton" HorizontalAlignment="Left" Margin="310,272,0,0" VerticalAlignment="Top" Width="70" Height="33" Click="Button_Click" Background="#FFC8C8C8"/>
+        <Button Content="MS" Tag="Memory" x:Name="MSaveButton" HorizontalAlignment="Left" Margin="310,197,0,0" VerticalAlignment="Top" Width="70" Height="33" Click="Button_Click" Background="#FFC8C8C8"/>
+        <Button Content="MR" Tag="Memory" x:Name="MResetButton" HorizontalAlignment="Left" Margin="348,160,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="Button_Click" Background="#FFC8C8C8"/>
+        <Button Content="Переход" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top" Width="295" Click="Button_Click" Tag="switchBtn" Height="38"/>
+        <Button x:Name="xxBtn" Content="x^2" FontSize="15" Click="Button_Click" Margin="310,347,0,0" Tag="xxBtn" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="33"/>
+        <Button x:Name="divxBtn" Content="1/x" FontSize="15" Click="Button_Click" Margin="348,347,0,0" Tag="1divxBtn" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="33"/>
+
+    </Grid>
+</Window>
