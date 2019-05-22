@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* 1-2.5-1
+Программа-калькулятор с комплексными числами. Напишите аналог программы-калькулятора, вхо-
+дящего в Windows, работающего только в обычном (неинжинерном) режиме.
+Насонов Е. гр. 205
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +28,9 @@ namespace ComplexNumbers
         public Complex resultComplex, firstComplex, secondComplex, memoryComplex; //Комплексные числа
         private string input = "";
 
-
+        /// <summary>
+        /// Этот enum описывает тип вводимого числа для переключения и прочего
+        /// </summary>
         public enum SelectedField
         {
             FirstReal,
@@ -30,20 +38,19 @@ namespace ComplexNumbers
             SecondReal,
             SecondImaginary
         }
-
-        public SelectedField CurrentSelectedField = SelectedField.FirstReal;
+        
+        public SelectedField CurrentSelectedField = SelectedField.FirstReal; //текущее выбранное поле
 
         public MainCalcWindow()
         {
             InitializeComponent();
         }
 
-        private void GetNumbers()
-        {
-            firstComplex = new Complex(double.Parse(FirstReal.Content.ToString()), double.Parse(FirstImaginary.Content.ToString()));
-            secondComplex = new Complex(double.Parse(SecondReal.Content.ToString()), double.Parse(SecondImaginary.Content.ToString()));
-        }
-
+        /// <summary>
+        /// Обработчик кнопок
+        /// </summary>
+        /// <param name="sender">Нажимаемая кнопка</param>
+        /// <param name="e">Информация о собитии</param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var btn = (Button)sender;
@@ -51,35 +58,35 @@ namespace ComplexNumbers
             {
                 switch (btn.Tag)
                 {
-                    case "divBtn":
+                    case "divBtn": //Если нажата кнопка деления
                         GetNumbers();
                         resultComplex = firstComplex / secondComplex;
                         resultComplex.real = Math.Round(resultComplex.real, 8);
                         resultComplex.imaginary = Math.Round(resultComplex.imaginary, 8);
                         lblResult.Content = resultComplex.ToString();
                         break;
-                    case "mulBtn":
+                    case "mulBtn": //Если нажата кнопка умножения
                         GetNumbers();
                         resultComplex = firstComplex * secondComplex;
                         lblResult.Content = resultComplex.ToString();
                         break;
-                    case "addBtn":
+                    case "addBtn": //Если нажата кнопка сложения
                         GetNumbers();
                         resultComplex = firstComplex + secondComplex;
                         lblResult.Content = resultComplex.ToString();
                         break;
-                    case "subBtn":
+                    case "subBtn": //Если нажата кнопка вычитания
                         GetNumbers();
                         resultComplex = firstComplex - secondComplex;
                         lblResult.Content = resultComplex.ToString();
                         break;
-                    case "sqrBtn":
+                    case "sqrBtn": //Если нажата кнопка возведения в 3 степень
                         GetNumbers();
                         firstComplex = Complex.sqr(firstComplex);
                         secondComplex = Complex.sqr(secondComplex);
                         lblResult.Content = firstComplex + "\r\n" + secondComplex;
                         break;
-                    case "percentBtn":
+                    case "percentBtn": //Нажата кнопка нахождения процента
                         GetNumbers();
                         Complex divComplex = new Complex(0.01, 0);
                         firstComplex = firstComplex * divComplex;
@@ -88,28 +95,31 @@ namespace ComplexNumbers
                         lblResult.Content = resultComplex;
 
                         break;
-                    case "clrBtn":
+                    case "clrBtn": //Кнопка отчистки
                         Clear();
                         break;
 
-                    case "switchBtn":
+                    case "switchBtn": //Кнопка перехода
                         switch (CurrentSelectedField)
                         {
                             case SelectedField.FirstReal:
                                 CurrentSelectedField = SelectedField.FirstImaginary;
+                                stepLabel.Content = "2";
                                 break;
                             case SelectedField.FirstImaginary:
                                 CurrentSelectedField = SelectedField.SecondReal;
+                                stepLabel.Content = "3";
                                 break;
                             case SelectedField.SecondReal:
                                 CurrentSelectedField = SelectedField.SecondImaginary;
+                                stepLabel.Content = "4";
                                 break;
                             case SelectedField.SecondImaginary:
                                 break;
                         }
                         input = "";
                         break;
-                    case "1divxBtn":
+                    case "1divxBtn": //Кнопка 1/x
                         if (resultComplex == null)
                         {
                             if (SecondReal.Content.ToString() == "" && SecondImaginary.Content.ToString() == "")
@@ -128,7 +138,7 @@ namespace ComplexNumbers
                         lblResult.Content = resultComplex;
                         break;
 
-                    case "xxBtn":
+                    case "xxBtn": //Кнопка квадрата
                         if (resultComplex == null)
                         {
                             if (SecondReal.Content.ToString() == "" && SecondImaginary.Content.ToString() == "")
@@ -148,10 +158,62 @@ namespace ComplexNumbers
                         }
                         lblResult.Content = resultComplex;
                         break;
+                    case "changesignBtn": //Кнопка смены знака
+                        try
+                        {
+                            switch (CurrentSelectedField)
+                            {
+                                case SelectedField.FirstReal:
+                                    if (FirstReal.Content.ToString()[0] != '-')
+                                        FirstReal.Content = '-' + FirstReal.Content.ToString();
+                                    else
+                                        FirstReal.Content = FirstReal.Content.ToString().Remove(0, 1);
+                                    input = FirstReal.Content.ToString();
+                                    break;
+                                case SelectedField.FirstImaginary:
+                                    if (FirstImaginary.Content.ToString()[0] != '-')
+                                        FirstImaginary.Content = '-' + FirstImaginary.Content.ToString();
+                                    else
+                                        FirstImaginary.Content = FirstImaginary.Content.ToString().Remove(0, 1);
+                                    input = FirstImaginary.Content.ToString();
 
-                    case "IsNumber":
-                        input += btn.Content;
+                                    break;
+                                case SelectedField.SecondReal:
+                                    if (SecondReal.Content.ToString()[0] != '-')
+                                        SecondReal.Content = '-' + SecondReal.Content.ToString();
+                                    else
+                                        SecondReal.Content = SecondReal.Content.ToString().Remove(0, 1);
+                                    input = SecondReal.Content.ToString();
 
+                                    break;
+                                case SelectedField.SecondImaginary:
+                                    if (SecondImaginary.Content.ToString()[0] != '-')
+                                        SecondImaginary.Content = '-' + SecondImaginary.Content.ToString();
+                                    else
+                                        SecondImaginary.Content = SecondImaginary.Content.ToString().Remove(0, 1);
+                                    input = SecondImaginary.Content.ToString();
+
+                                    break;
+                            }
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+
+                        }
+                        break;
+
+                    case "IsNumber": //Обработка ввода чисел
+                        if (btn.Content.ToString() == ",")
+                        {
+                            if (!input.Contains(","))
+                            {
+                                input += btn.Content;
+                            }
+                        }
+                        else
+                        {
+                            input += btn.Content;
+                        }
                         switch (CurrentSelectedField)
                         {
                             case SelectedField.FirstReal:
@@ -169,7 +231,7 @@ namespace ComplexNumbers
                         }
                         break;
 
-                    case "Memory":
+                    case "Memory": //Работа с памятью калькулятора
                         switch (btn.Content.ToString())
                         {
                             case "MS":
@@ -205,7 +267,9 @@ namespace ComplexNumbers
                 Clear();
             }
         }
-
+        /// <summary>
+        /// Чтение из памяти калькулятора
+        /// </summary>
         private void ReadFromMemory()
         {
             if (memoryComplex != null)
@@ -223,7 +287,9 @@ namespace ComplexNumbers
 
             }
         }
-
+        /// <summary>
+        /// Сохранение в память калькулятора
+        /// </summary>
         private void SaveToMemory()
         {
             if (resultComplex == null)
@@ -242,6 +308,9 @@ namespace ComplexNumbers
                 memoryComplex = resultComplex;
             }
         }
+        /// <summary>
+        /// Очистить калькулятор
+        /// </summary>
         private void Clear()
         {
             lblResult.Content = "Не посчитанно";
@@ -252,7 +321,24 @@ namespace ComplexNumbers
             SecondImaginary.Content = "";
             CurrentSelectedField = SelectedField.FirstReal;
             resultComplex = null;
+            stepLabel.Content = "1";
         }
+
+        /// <summary>
+        /// Заносит в первое и второе число информацию из полей
+        /// </summary>
+        private void GetNumbers()
+        {
+            firstComplex = new Complex(double.Parse(FirstReal.Content.ToString()), double.Parse(FirstImaginary.Content.ToString()));
+            secondComplex = new Complex(double.Parse(SecondReal.Content.ToString()), double.Parse(SecondImaginary.Content.ToString()));
+        }
+
+        /// <summary>
+        /// Выборочно заносит информацию из полей
+        /// </summary>
+        /// <param name="first">Первое число</param>
+        /// <param name="second">Второе число</param>
+        /// <returns></returns>
         private Complex GetNumbers(string first, string second)
         {
             if (first == "")

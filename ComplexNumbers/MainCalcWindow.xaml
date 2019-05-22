@@ -60,6 +60,8 @@
         <Button Content="Переход" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top" Width="295" Click="Button_Click" Tag="switchBtn" Height="38"/>
         <Button x:Name="xxBtn" Content="x^2" FontSize="15" Click="Button_Click" Margin="310,347,0,0" Tag="xxBtn" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="33"/>
         <Button x:Name="divxBtn" Content="1/x" FontSize="15" Click="Button_Click" Margin="348,347,0,0" Tag="1divxBtn" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="33"/>
+        <Button Content="+/-" Tag="changesignBtn" Click="Button_Click" HorizontalAlignment="Left" Margin="10,385,0,0" VerticalAlignment="Top" Width="70" Height="70"/>
+        <Label x:Name="stepLabel" Content="1" HorizontalAlignment="Left" Margin="328,29,0,0" VerticalAlignment="Top" Height="74" Width="52" FontSize="50"/>
 
     </Grid>
 </Window>
